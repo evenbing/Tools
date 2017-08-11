@@ -86,7 +86,7 @@ namespace Killer.Tools.DataStructure.KillerLinkList
         /// <param name="index">所在位置</param>
         public void RemoveAt(long index)
         {
-            if (index < 0 || index > this._nodeCount)
+            if (index < 1 || index > this._nodeCount)
             {
                 throw new IndexOutOfRangeException("索引不在链表的范围内");
             }
@@ -95,23 +95,30 @@ namespace Killer.Tools.DataStructure.KillerLinkList
                 if (this._nodeCount == 1)
                 {
                     this._lastNode = null;
+                    this._head = null;
                 }
                 else
                 {
                     var node1 = GetLinlistNodeByIndex(index - 1);
                     this._lastNode = node1;
+                    this._lastNode.NextNode = null;
                 }
-            }
-            if (index == 0)
-            {
-                this._head = this._head.NextNode;
             }
             else
             {
-                var node = GetLinlistNodeByIndex(index - 1);
-                var next = node.NextNode;
-                node.NextNode = next.NextNode;
-                next = null;
+                if (index == 1)
+                {
+                    var mid = this._head;
+                    this._head = this._head.NextNode;
+                    mid.NextNode = null;
+                }
+                else
+                {
+                    var node = GetLinlistNodeByIndex(index - 1);
+                    var next = node.NextNode;
+                    node.NextNode = next.NextNode;
+                    next = null;
+                }
             }
             this.NodeCount--;
         }

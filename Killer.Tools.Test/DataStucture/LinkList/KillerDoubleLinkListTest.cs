@@ -32,6 +32,9 @@ namespace Killer.Tools.Test.DataStucture.LinkList
             _linkList.Insert(0,1);
             _linkList.Insert(1,2);
             _linkList.Insert(2,3);
+            _linkList.Insert(3,4);
+
+            _linkList.RemoveAt(2);
         }
         [TestMethod]
         public void InsertBeforeTest()
