@@ -33,5 +33,17 @@ namespace Killer.Tools.Test.DataStucture.LinkList
             _linkList.Insert(1,2);
             _linkList.Insert(2,3);
         }
+        [TestMethod]
+        public void InsertBeforeTest()
+        {
+            Random random = new Random(DateTime.Now.Millisecond);
+            _linkList.InsertBefore(1, random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+            _linkList.InsertBefore(random.Next(1,(int)_linkList.NodeCount), random.Next(1000000));
+        }
     }
 }
