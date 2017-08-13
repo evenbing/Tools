@@ -44,6 +44,8 @@
     <Compile Include="KillerLinkList\KillerDoubleLinkListNode.cs" />
     <Compile Include="KillerLinkList\KillerLinkListNode.cs" />
     <Compile Include="KillerLinkList\KillerSingleLinkList.cs" />
+    <Compile Include="KillerQueue\KillerQueue.cs" />
+    <Compile Include="KillerQueue\KillerQueueNode.cs" />
     <Compile Include="KillerStack\KillerStack.cs" />
     <Compile Include="KillerStack\KillerStackNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
