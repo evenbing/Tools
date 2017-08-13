@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DataStucture\LinkList\KillerDoubleLinkListTest.cs" />
     <Compile Include="DataStucture\LinkList\KillerSingleLinkListTest.cs" />
+    <Compile Include="DataStucture\Stack\KIllerStackTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@
         }
         public KillerStackNode(T value)
         {
-            this.NextNode = value;
+            this.NodeValue = value;
         }
     }
 }
