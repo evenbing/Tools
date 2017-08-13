@@ -44,6 +44,7 @@ namespace Killer.Tools.DataStructure.KillerStack
             }
             var node = this._head;
             this._head = this._head.NextNode;
+            node.NextNode = null;
             this._count--;
             return node.NodeValue;
         }
