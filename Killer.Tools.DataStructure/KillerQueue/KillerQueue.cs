@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Killer.Tools.DataStructure.KillerQueue
 {
     /// <summary>
     /// 队列数据结构
     /// </summary>
-    public class KillerQueue<T>
+    public class KillerQueue<T> : IEnumerable<T>
     {
         private KillerQueueNode<T> _head;
         private KillerQueueNode<T> _end;
@@ -51,6 +53,61 @@ namespace Killer.Tools.DataStructure.KillerQueue
                 this._end = null;
             }
             return node.NodeValue;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new KillerQueueEnumerator(this._head);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+        public struct KillerQueueEnumerator : IEnumerator<T>
+        {
+            internal KillerQueueEnumerator(KillerQueueNode<T> node)
+            {
+                this._node = node;
+                this._nodeFirst = node;
+            }
+            private KillerQueueNode<T> _node;
+            private KillerQueueNode<T> _nodeFirst;
+            public T Current
+            {
+                get
+                {
+                    var node = this._node;
+                    this._node = node.NextNode;
+                    return node.NodeValue;
+                }
+            }
+
+            object IEnumerator.Current
+            {
+                get
+                {
+                    var node = this._node;
+                    this._node = node.NextNode;
+                    return node.NodeValue;
+                }
+            }
+
+            public void Dispose()
+            {
+                this._node = null;
+            }
+
+            public bool MoveNext()
+            {
+                return this._node != null;
+
+            }
+
+            public void Reset()
+            {
+                this._node = this._nodeFirst;
+            }
         }
     }
 }
