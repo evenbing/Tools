@@ -48,6 +48,8 @@
     <Compile Include="KillerQueue\KillerQueueNode.cs" />
     <Compile Include="KillerStack\KillerStack.cs" />
     <Compile Include="KillerStack\KillerStackNode.cs" />
+    <Compile Include="KillerTree\KillerBinaryTree.cs" />
+    <Compile Include="KillerTree\KillerBinaryTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -52,6 +52,7 @@
     <Compile Include="DataStucture\LinkList\KillerSingleLinkListTest.cs" />
     <Compile Include="DataStucture\Queue\KillerQueueTest.cs" />
     <Compile Include="DataStucture\Stack\KIllerStackTest.cs" />
+    <Compile Include="DataStucture\Tree\BinaryTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
