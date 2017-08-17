@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Killer.Tools.DataStructure.KillerTree
 {
@@ -123,8 +120,83 @@ namespace Killer.Tools.DataStructure.KillerTree
                 return;
             }
             EndTraverse(node.LeftChild, action);
-            action?.Invoke(node.TreeValue);
             EndTraverse(node.RightChild, action);
+            action?.Invoke(node.TreeValue);
+        }
+        /// <summary>
+        /// 前序遍历  不使用递归
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action"></param>
+        public void PreTraverseLoop(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            Stack<KillerBinaryTreeNode<T>> stack = new Stack<KillerBinaryTreeNode<T>>(10);
+            stack.Push(node);
+            while (stack.Count > 0)
+            {
+                var midNode = stack.Pop();
+                action?.Invoke(midNode.TreeValue);
+                if (midNode.RightChild != null)
+                {
+                    stack.Push(midNode.RightChild);
+                }
+                if (midNode.LeftChild != null)
+                {
+                    stack.Push(midNode.LeftChild);
+                }
+            }
+        }
+        /// <summary>
+        /// 中序遍历  非递归
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action"></param>
+        public void MidTraverseLoop(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null) return;
+            Stack<KillerBinaryTreeNode<T>> stack = new Stack<KillerBinaryTreeNode<T>>(10);
+            var midNode = node;
+            if (midNode != null || stack.Count > 0)
+            {
+                while (midNode != null)
+                {
+                    stack.Push(midNode);
+                    midNode = midNode.LeftChild;
+                }
+                midNode = stack.Pop();
+                action?.Invoke(midNode.TreeValue);
+                midNode = midNode.RightChild;
+            }
+        }
+        public void EndTraverseLoop(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null) return;
+            Stack<KillerBinaryTreeNode<T>> stackIn = new Stack<KillerBinaryTreeNode<T>>(10);
+            Stack<KillerBinaryTreeNode<T>> stackOut = new Stack<KillerBinaryTreeNode<T>>(10);
+            stackIn.Push(node);
+            var midNode = node;
+            while (stackIn.Count > 0)
+            {
+                midNode = stackIn.Pop();
+                stackOut.Push(midNode);
+                if (midNode.LeftChild != null)
+                {
+                    stackIn.Push(midNode.LeftChild);
+                }
+                if (midNode.RightChild != null)
+                {
+                    stackIn.Push(midNode.RightChild);
+                }
+            }
+            while (stackOut.Count > 0)
+            {
+                midNode = stackOut.Pop();
+                action?.Invoke(midNode.TreeValue);
+            }
         }
     }
 }

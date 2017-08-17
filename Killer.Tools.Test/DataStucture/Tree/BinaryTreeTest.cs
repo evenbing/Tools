@@ -38,19 +38,29 @@ namespace Killer.Tools.Test.DataStucture.Tree
 
             tree.PreTraverse(tree.Root, (t) =>
             {
-                Console.WriteLine(t);
+                Console.Write(t+"\t");
+            });
+            Console.WriteLine("完成前序遍历");
+            tree.PreTraverseLoop(tree.Root, (t) =>
+            {
+                Console.Write(t + "\t");
             });
             Console.WriteLine("完成前序遍历");
             tree.MidTraverse(tree.Root, (t) =>
             {
-                Console.WriteLine(t);
+                Console.Write(t + "\t");
             });
             Console.WriteLine("完成中序遍历");
             tree.EndTraverse(tree.Root, (t) =>
             {
-                Console.WriteLine(t);
+                Console.Write(t + "\t");
             });
-            Console.WriteLine("完成中序遍历");
+            Console.WriteLine("后续遍历中序遍历");
+            tree.EndTraverseLoop(tree.Root, (t) =>
+            {
+                Console.Write(t + "\t");
+            });
+            Console.WriteLine("后续遍历中序遍历");
         }
     }
 }
