@@ -32,7 +32,7 @@ namespace Killer.Tools.DataStructure.KillerTree
         {
             if (this._root == null)
             {
-                throw new ArgumentNullException("没有跟节点");
+                throw new ArgumentNullException("没有根节点");
             }
             if (node == null)
             {
@@ -44,7 +44,7 @@ namespace Killer.Tools.DataStructure.KillerTree
         {
             if (this._root == null)
             {
-                throw new ArgumentNullException("没有跟节点");
+                throw new ArgumentNullException("没有根节点");
             }
             if (node == null)
             {
@@ -56,7 +56,7 @@ namespace Killer.Tools.DataStructure.KillerTree
         {
             if (this._root == null)
             {
-                throw new ArgumentNullException("没有跟节点");
+                throw new ArgumentNullException("没有根节点");
             }
             if (node == null)
             {
@@ -70,7 +70,7 @@ namespace Killer.Tools.DataStructure.KillerTree
         {
             if (this._root == null)
             {
-                throw new ArgumentNullException("没有跟节点");
+                throw new ArgumentNullException("没有根节点");
             }
             if (node == null)
             {
@@ -79,6 +79,52 @@ namespace Killer.Tools.DataStructure.KillerTree
 
             var newNode = new KillerBinaryTreeNode<T>(value, null, node.RightChild);
             node.RightChild = newNode;
+        }
+
+        /// <summary>
+        /// 前序遍历 二叉树
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action">对每个节点进行的操作</param>
+        public void PreTraverse(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            action?.Invoke(node.TreeValue);
+            PreTraverse(node.LeftChild, action);
+            PreTraverse(node.RightChild, action);
+        }
+        /// <summary>
+        /// 中序遍历
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action"></param>
+        public void MidTraverse(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            MidTraverse(node.LeftChild, action);
+            action?.Invoke(node.TreeValue);
+            MidTraverse(node.RightChild, action);
+        }
+        /// <summary>
+        /// 后序遍历
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action"></param>
+        public void EndTraverse(KillerBinaryTreeNode<T> node, Action<T> action)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            EndTraverse(node.LeftChild, action);
+            action?.Invoke(node.TreeValue);
+            EndTraverse(node.RightChild, action);
         }
     }
 }

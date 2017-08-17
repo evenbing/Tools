@@ -36,7 +36,21 @@ namespace Killer.Tools.Test.DataStucture.Tree
                 }
             }
 
-            Console.WriteLine(11);
+            tree.PreTraverse(tree.Root, (t) =>
+            {
+                Console.WriteLine(t);
+            });
+            Console.WriteLine("完成前序遍历");
+            tree.MidTraverse(tree.Root, (t) =>
+            {
+                Console.WriteLine(t);
+            });
+            Console.WriteLine("完成中序遍历");
+            tree.EndTraverse(tree.Root, (t) =>
+            {
+                Console.WriteLine(t);
+            });
+            Console.WriteLine("完成中序遍历");
         }
     }
 }
