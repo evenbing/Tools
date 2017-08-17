@@ -172,6 +172,11 @@ namespace Killer.Tools.DataStructure.KillerTree
                 midNode = midNode.RightChild;
             }
         }
+        /// <summary>
+        /// 后序遍历二叉树  非递归
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="action"></param>
         public void EndTraverseLoop(KillerBinaryTreeNode<T> node, Action<T> action)
         {
             if (node == null) return;
@@ -196,6 +201,33 @@ namespace Killer.Tools.DataStructure.KillerTree
             {
                 midNode = stackOut.Pop();
                 action?.Invoke(midNode.TreeValue);
+            }
+        }
+        /// <summary>
+        /// 层次 遍历
+        /// </summary>
+        /// <param name="action"></param>
+        public void LevelTraverse(Action<T> action)
+        {
+            if (this._root == null)
+            {
+                return;
+            }
+            Queue<KillerBinaryTreeNode<T>> queue = new Queue<KillerBinaryTreeNode<T>>(10);
+            queue.Enqueue(this._root);
+            KillerBinaryTreeNode<T> node = null;
+            while (queue.Count > 0)
+            {
+                node = queue.Dequeue();
+                action?.Invoke(node.TreeValue);
+                if (node.LeftChild != null)
+                {
+                    queue.Enqueue(node.LeftChild);
+                }
+                if (node.RightChild != null)
+                {
+                    queue.Enqueue(node.RightChild);
+                }
             }
         }
     }
