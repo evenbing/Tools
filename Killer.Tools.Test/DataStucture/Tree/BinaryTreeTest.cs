@@ -61,6 +61,9 @@ namespace Killer.Tools.Test.DataStucture.Tree
                 Console.Write(t + "\t");
             });
             Console.WriteLine("后续遍历中序遍历");
+
+
+            tree.InsertWithSearch(9999999);
         }
     }
 }

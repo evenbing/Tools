@@ -230,5 +230,52 @@ namespace Killer.Tools.DataStructure.KillerTree
                 }
             }
         }
+        /// <summary>
+        /// 二叉树查找
+        /// （1）若左子树不空，则左子树上所有结点的值均小于它的根结点的值；
+        ///（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；
+        ///（3）左、右子树也分别为二叉排序树；
+        ///（4）没有键值相等的节点。
+        /// </summary>
+        /// <param name="value"></param>
+        public void InsertWithSearch<T1>(T1 value) where T1 : IComparable<T1>
+        {
+            var node = new KillerBinaryTreeNode<T1>(value);
+            if (typeof(T) == typeof(T1) && this._root != null)
+            {
+                KillerBinaryTreeNode<T1> parent = null;
+                KillerBinaryTreeNode<T1> currentNode = this._root as KillerBinaryTreeNode<T1>;
+                if (currentNode == null)
+                {
+                    return;
+                }
+                IComparable<T1> com;
+                while (currentNode != null)
+                {
+                    parent = currentNode;
+                    com = (IComparable<T1>)currentNode.TreeValue;
+                    var res = com.CompareTo(node.TreeValue);
+                    if (res < 0)
+                    {
+                        currentNode = currentNode.LeftChild;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.RightChild;
+                    }
+                }
+                com = (IComparable<T1>)parent.TreeValue;
+                var res1 = com.CompareTo(parent.TreeValue);
+                if (res1 < 0)
+                {
+                    parent.LeftChild = node;
+                }
+                else
+                {
+                    parent.RightChild = node;
+                }
+            }
+
+        }
     }
 }
