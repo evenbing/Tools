@@ -389,8 +389,9 @@ namespace Killer.Tools.DataStructure.KillerTree
                 }
                 else
                 {
-                    currentNode.RightChild = markNodeParent.RightChild;
+                    markNodeParent.RightChild = markNodeParent.LeftChild;
                 }
+                markNode = null;
             }
             return false;
         }
