@@ -389,7 +389,7 @@ namespace Killer.Tools.DataStructure.KillerTree
                 }
                 else
                 {
-                    markNodeParent.RightChild = markNodeParent.LeftChild;
+                    markNodeParent.RightChild = markNode.LeftChild;
                 }
                 markNode = null;
             }
