@@ -94,6 +94,54 @@ namespace Killer.Tools.DataStructure.KillerGraph
             return false;
         }
         /// <summary>
+        /// 删除特定条件下的顶点
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public bool RemoveVertex(Predicate<KillerVertex<T>> filter)
+        {
+            if (filter == null)
+            {
+                return false;
+            }
+            List<KillerVertex<T>> removed = new List<KillerVertex<T>>(10);
+            foreach (var item in this._vertexs)
+            {
+                if (filter(item))
+                {
+                    removed.Add(item);
+                }
+            }
+            if (removed.Count < 1)
+            {
+                return false;
+            }
+            foreach (var item in this._vertexs)
+            {
+                foreach (var remove in removed)
+                {
+                    if (item == remove)
+                    {
+                        continue;
+                    }
+                    RemoveDirectedEdge(item, remove);
+                }
+            }
+            return this._vertexs.RemoveWhere(filter) > 0;
+        }
+        /// <summary>
+        /// 删除无向边
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public bool RemoveUnDirectedEdge(KillerVertex<T> v1, KillerVertex<T> v2)
+        {
+            var flag = RemoveDirectedEdge(v1, v2);
+            var flag2 = RemoveDirectedEdge(v2, v1);
+            return flag || flag2;
+        }
+        /// <summary>
         /// 移除一个有向边
         /// </summary>
         /// <param name="from"></param>
