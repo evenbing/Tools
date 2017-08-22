@@ -71,6 +71,59 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 enge.Next = new KillerLinkNode<T>(to, null);
             }
         }
+        /// <summary>
+        /// 移除一个顶点
+        /// </summary>
+        /// <param name="vertex"></param>
+        /// <returns></returns>
+        public bool RemoveVertex(KillerVertex<T> vertex)
+        {
+            if (this._vertexs.Contains(vertex))
+            {
+                //解除边
+                foreach (var item in this._vertexs)
+                {
+                    if (item == vertex)
+                    {
+                        continue;
+                    }
+                    RemoveDirectedEdge(item, vertex);
+                }
+                return this._vertexs.Remove(vertex);
+            }
+            return false;
+        }
+        /// <summary>
+        /// 移除一个有向边
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public bool RemoveDirectedEdge(KillerVertex<T> from, KillerVertex<T> to)
+        {
+            if (from == null || to == null)
+            {
+                throw new ArgumentNullException("参数不能为null");
+            }
+            if (from.FirstEdge == null)
+            {
+                return false;
+            }
+            var edge = from.FirstEdge;
+            var pre = from.FirstEdge;
+            do
+            {
+                if (edge.Vertex == to)
+                {
+                    pre.Next = edge.Next;
+                    edge.Next = null;
+                    return true;
+                }
+                pre = edge;
+                edge = edge.Next;
+            } while (edge != null);
+            return false;
+        }
         public bool IsEmpty()
         {
             return this._vertexs.Count < 1;

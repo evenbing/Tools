@@ -47,9 +47,14 @@ namespace Killer.Tools.Test.DataStucture.Graph
                         str += $"{item.VertexValue} -> {edge.Vertex.VertexValue} \t";
                         edge = edge.Next;
                     } while (edge != null);
-                    Console.WriteLine(str);
-                    str = string.Empty;
+                  
                 }
+                else
+                {
+                    str = $"{item.VertexValue}";
+                }
+                Console.WriteLine(str);
+                str = string.Empty;
             }
 
         }
