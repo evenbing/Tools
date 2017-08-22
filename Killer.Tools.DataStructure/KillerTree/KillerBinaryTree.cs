@@ -237,7 +237,7 @@ namespace Killer.Tools.DataStructure.KillerTree
         ///（3）左、右子树也分别为二叉排序树；
         ///（4）没有键值相等的节点。
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">插入的值 必须实现IComparable<T1> 接口</param>
         public void InsertWithSearch<T1>(T1 value) where T1 : IComparable<T1>
         {
             var node = new KillerBinaryTreeNode<T1>(value);
