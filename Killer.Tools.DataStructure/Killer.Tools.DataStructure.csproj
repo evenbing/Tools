@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KillerGraph\KillerLinkGraph.cs" />
+    <Compile Include="KillerGraph\KillerLinkNode.cs" />
+    <Compile Include="KillerGraph\KillerVertex.cs" />
     <Compile Include="KillerLinkList\KillerDoubleLinkList.cs" />
     <Compile Include="KillerLinkList\KillerDoubleLinkListNode.cs" />
     <Compile Include="KillerLinkList\KillerLinkListNode.cs" />
@@ -52,8 +55,6 @@
     <Compile Include="KillerTree\KillerBinaryTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="KillerGraph\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
