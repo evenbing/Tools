@@ -275,7 +275,125 @@ namespace Killer.Tools.DataStructure.KillerTree
                     parent.RightChild = node;
                 }
             }
+        }
+        /// <summary>
+        /// 移除节点数据
+        /// </summary>
+        /// <typeparam name="T1">必须 与 T 类型 一致</typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Remove<T1>(T1 value) where T1 : IComparable<T1>
+        {
 
+            KillerBinaryTreeNode<T> parent = null;
+            KillerBinaryTreeNode<T> currentNode = this._root;
+
+            IComparable<T1> com = currentNode as IComparable<T1>;
+            if (typeof(T) != typeof(T1) || currentNode == null)
+            {
+                return false;
+            }
+            int mid = com.CompareTo(value);
+            while (currentNode != null && com.CompareTo(value) != 0)
+            {
+                mid = com.CompareTo(value);
+                parent = currentNode;
+                com = currentNode as IComparable<T1>;
+                if (mid > 0)
+                {
+                    parent = currentNode;
+                    currentNode = currentNode.RightChild;
+                }
+                else if (mid < 0)
+                {
+                    parent = currentNode;
+                    currentNode = currentNode.LeftChild;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (currentNode == null)
+            {
+                return false;
+            }
+
+            if (currentNode.LeftChild == null && currentNode.RightChild == null)
+            {
+                if (currentNode == this._root)
+                {
+                    this._root = null;
+                }
+                else if (parent.LeftChild == currentNode)
+                {
+                    parent.LeftChild = null;
+                }
+                else if (parent.RightChild == currentNode)
+                {
+                    parent.RightChild = null;
+                }
+            }
+            else if (currentNode.LeftChild == null || currentNode.RightChild == null)
+            {
+                if (currentNode == this._root)
+                {
+                    if (this._root.LeftChild == null)
+                    {
+                        this._root = this._root.RightChild;
+                    }
+                    else
+                    {
+                        this._root = this._root.LeftChild;
+                    }
+                }
+                else
+                {
+                    if (parent.LeftChild == currentNode)
+                    {
+                        if (currentNode.LeftChild == null)
+                        {
+                            parent.LeftChild = currentNode.RightChild;
+                        }
+                        else
+                        {
+                            parent.LeftChild = currentNode.LeftChild;
+                        }
+                    }
+                    else
+                    {
+                        if (currentNode.LeftChild == null)
+                        {
+                            parent.RightChild = currentNode.RightChild;
+                        }
+                        else
+                        {
+                            parent.RightChild = currentNode.LeftChild;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                KillerBinaryTreeNode<T> markNode = currentNode.LeftChild;
+                KillerBinaryTreeNode<T> markNodeParent = currentNode;
+                while (markNode.RightChild != null)
+                {
+                    markNodeParent = markNode;
+                    markNode = markNode.RightChild;
+                }
+                currentNode.TreeValue = markNode.TreeValue;
+                if (currentNode == markNodeParent)
+                {
+                    currentNode.LeftChild = markNodeParent.LeftChild;
+                }
+                else
+                {
+                    markNodeParent.RightChild = markNode.LeftChild;
+                }
+                markNode = null;
+            }
+            return false;
         }
     }
 }
