@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Killer.Tools.DataStructure.KillerGraph
 {
@@ -11,7 +8,13 @@ namespace Killer.Tools.DataStructure.KillerGraph
     /// </summary>
     public class KillerLinkGraph<T>
     {
+
         private HashSet<KillerVertex<T>> _vertexs;
+
+        public HashSet<KillerVertex<T>> Vertexs { get => _vertexs; set => _vertexs = value; }
+
+        public int Count { get => this._vertexs.Count; }
+
         public KillerLinkGraph()
         {
             this._vertexs = new HashSet<KillerVertex<T>>();
@@ -67,6 +70,10 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 }
                 enge.Next = new KillerLinkNode<T>(to, null);
             }
+        }
+        public bool IsEmpty()
+        {
+            return this._vertexs.Count < 1;
         }
     }
 }
