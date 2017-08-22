@@ -157,19 +157,23 @@ namespace Killer.Tools.DataStructure.KillerGraph
             {
                 return false;
             }
+            if (from.FirstEdge.Vertex == to)
+            {
+                from.FirstEdge = null;
+                return true;
+            }
             var edge = from.FirstEdge;
             var pre = from.FirstEdge;
-            do
+            while (edge.Next != null)
             {
+                pre = edge;
+                edge = edge.Next;
                 if (edge.Vertex == to)
                 {
                     pre.Next = edge.Next;
-                    edge.Next = null;
                     return true;
                 }
-                pre = edge;
-                edge = edge.Next;
-            } while (edge != null);
+            }
             return false;
         }
         public bool IsEmpty()

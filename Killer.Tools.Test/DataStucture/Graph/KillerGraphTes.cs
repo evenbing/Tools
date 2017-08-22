@@ -35,7 +35,15 @@ namespace Killer.Tools.Test.DataStucture.Graph
             graph.AddDirectedEdge(a, c);
             graph.AddDirectedEdge(c, d);
             graph.AddDirectedEdge(b, d);
+            Output();
 
+            graph.RemoveVertex(d);
+
+            Output();
+
+        }
+        public void Output()
+        {
             string str = String.Empty;
             foreach (var item in graph.Vertexs)
             {
@@ -47,7 +55,7 @@ namespace Killer.Tools.Test.DataStucture.Graph
                         str += $"{item.VertexValue} -> {edge.Vertex.VertexValue} \t";
                         edge = edge.Next;
                     } while (edge != null);
-                  
+
                 }
                 else
                 {
@@ -56,7 +64,7 @@ namespace Killer.Tools.Test.DataStucture.Graph
                 Console.WriteLine(str);
                 str = string.Empty;
             }
-
         }
     }
+
 }
