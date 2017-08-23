@@ -194,29 +194,53 @@ namespace Killer.Tools.DataStructure.KillerGraph
             DepthTraverseIn(startVertex, vertexDo);
         }
 
-        private static void DepthTraverseIn(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        private void DepthTraverseIn(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
         {
             var midVertex = startVertex;
             var edge = midVertex.FirstEdge;
-            while (edge != null)
+            var queue = new Queue<KillerVertex<T>>((int)(this.Count / 2));
+            queue.Enqueue(midVertex);
+            while (queue.Count > 0)
             {
-                while (!midVertex.IsVisited)
+                midVertex = queue.Dequeue();
+                if (midVertex.IsVisited == false)
                 {
                     vertexDo?.Invoke(midVertex);
                     midVertex.IsVisited = true;
-                    midVertex = edge.Vertex;
-                    if (edge.Next == null)
-                    {
-                        edge = edge.Vertex.FirstEdge;
-                        break;
-                    }
-                    else
-                    {
-                        edge = edge.Next;
-                    }
                 }
-                edge = edge?.Next;
+                while (edge != null)
+                {
+                    while (!edge.Vertex.IsVisited)
+                    {
+                        vertexDo?.Invoke(edge.Vertex);
+                        edge.Vertex.IsVisited = true;
+                        queue.Enqueue(edge.Vertex);
+                        edge = edge.Vertex.FirstEdge;
+                    }
+                    edge = edge?.Next;
+                }
             }
+
+
+            //while (edge != null)
+            //{
+            //    while (!midVertex.IsVisited)
+            //    {
+            //        vertexDo?.Invoke(midVertex);
+            //        midVertex.IsVisited = true;
+            //        midVertex = edge.Vertex;
+            //        if (edge.Next == null)
+            //        {
+            //            edge = edge.Vertex.FirstEdge;
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            edge = edge.Next;
+            //        }
+            //    }
+            //    edge = edge?.Next;
+            //}
         }
 
         /// <summary>
