@@ -164,7 +164,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
             }
             if (from.FirstEdge.Vertex == to)
             {
-                from.FirstEdge = null;
+                from.FirstEdge = from.FirstEdge.Next;
                 return true;
             }
             var edge = from.FirstEdge;
