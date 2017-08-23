@@ -31,11 +31,21 @@ namespace Killer.Tools.Test.DataStucture.Graph
             var d = graph.Vertexs.First(t => t.VertexValue == "D");
 
             graph.AddDirectedEdge(a, b);
-            graph.AddDirectedEdge(a, b);
-            graph.AddDirectedEdge(a, c);
+            graph.AddDirectedEdge(a, d);
+            graph.AddDirectedEdge(b, a);
+            graph.AddDirectedEdge(b, c);
+            graph.AddDirectedEdge(c, b);
             graph.AddDirectedEdge(c, d);
-            graph.AddDirectedEdge(b, d);
+            graph.AddDirectedEdge(d, a);
+            graph.AddDirectedEdge(d, c);
+
             Output();
+
+
+            graph.DeepTraverse(a, (t) =>
+            {
+                Console.WriteLine(t.VertexValue+"*");
+            });
 
             graph.RemoveVertex(d);
 

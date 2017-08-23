@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Killer.Tools.DataStructure.KillerGraph
 {
@@ -179,6 +180,45 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 }
             }
             return false;
+        }
+        /// <summary>
+        /// 深度优先遍历
+        /// </summary>
+        public void DeepTraverse(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        {
+            InitVisited();//初始化为未访问过的
+            if (startVertex == null)
+            {
+                throw new ArgumentNullException("startVertex", "其实顶点不能为null");
+            }
+            var midVertex = startVertex;
+            var edge = midVertex.FirstEdge;
+            while (edge != null)
+            {
+                while (!midVertex.IsVisited)
+                {
+                    vertexDo?.Invoke(midVertex);
+                    midVertex.IsVisited = true;
+                    midVertex = edge.Vertex;
+                    if (edge.Next == null)
+                    {
+                        edge = edge.Vertex.FirstEdge;
+                        break;
+                    }
+                    else
+                    {
+                        edge = edge.Next;
+                    }
+                }
+                edge = edge.Next;
+            }
+        }
+        private void InitVisited()
+        {
+            foreach (var vertex in this._vertexs)
+            {
+                vertex.IsVisited = false;
+            }
         }
         public bool IsEmpty()
         {
