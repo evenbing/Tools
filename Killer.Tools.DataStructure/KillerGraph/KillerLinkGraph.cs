@@ -210,7 +210,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                         edge = edge.Next;
                     }
                 }
-                edge = edge.Next;
+                edge = edge?.Next;
             }
         }
         private void InitVisited()

@@ -25,15 +25,18 @@ namespace Killer.Tools.Test.DataStucture.Graph
             graph.AddVertex("C");
             graph.AddVertex("D");
             graph.AddVertex("E");
+            graph.AddVertex("F");
 
             var a = graph.Vertexs.First(t => t.VertexValue == "A");
             var b = graph.Vertexs.First(t => t.VertexValue == "B");
             var c = graph.Vertexs.First(t => t.VertexValue == "C");
             var d = graph.Vertexs.First(t => t.VertexValue == "D");
             var e = graph.Vertexs.First(t => t.VertexValue == "E");
+            var f = graph.Vertexs.First(t => t.VertexValue == "F");
 
             graph.AddDirectedEdge(a, b);
             graph.AddDirectedEdge(a, d);
+            graph.AddDirectedEdge(a, f);
             graph.AddDirectedEdge(b, a);
             graph.AddDirectedEdge(b, c);
             graph.AddDirectedEdge(c, b);
@@ -44,6 +47,9 @@ namespace Killer.Tools.Test.DataStucture.Graph
             graph.AddDirectedEdge(d, e);
             graph.AddDirectedEdge(e, d);
             graph.AddDirectedEdge(e, c);
+            graph.AddDirectedEdge(e, f);
+            graph.AddDirectedEdge(f, a);
+            graph.AddDirectedEdge(f, e);
 
             Output();
 
