@@ -199,6 +199,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
             var midVertex = startVertex;
             var edge = midVertex.FirstEdge;
             var queue = new Queue<KillerVertex<T>>((int)(this.Count / 2));
+            var num = 0;
             queue.Enqueue(midVertex);
             while (queue.Count > 0)
             {
@@ -208,6 +209,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                     vertexDo?.Invoke(midVertex);
                     midVertex.IsVisited = true;
                 }
+                edge = midVertex.FirstEdge;
                 while (edge != null)
                 {
                     while (!edge.Vertex.IsVisited)
@@ -216,11 +218,14 @@ namespace Killer.Tools.DataStructure.KillerGraph
                         edge.Vertex.IsVisited = true;
                         queue.Enqueue(edge.Vertex);
                         edge = edge.Vertex.FirstEdge;
+                        num++;
                     }
+                    num++;
                     edge = edge?.Next;
                 }
+                num++;
             }
-
+            Console.WriteLine($"深度{num}");
 
             //while (edge != null)
             //{
