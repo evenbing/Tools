@@ -78,6 +78,10 @@ namespace Killer.Tools.DataStructure.KillerGraph
         /// <returns></returns>
         public bool RemoveVertex(KillerVertex<T> vertex)
         {
+            if (vertex == null)
+            {
+                throw new ArgumentNullException("vertex is null");
+            }
             if (this._vertexs.Contains(vertex))
             {
                 //解除边
