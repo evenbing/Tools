@@ -59,6 +59,11 @@ namespace Killer.Tools.Test.DataStucture.Graph
                 Console.WriteLine(t.VertexValue+"*");
             });
 
+            graph.NotAllDirectedDepth((t) =>
+            {
+                Console.WriteLine(t.VertexValue + "-");
+            });
+
             graph.BreadthTraverse(a, (t) =>
             {
                 Console.WriteLine(t.VertexValue + "+");

@@ -191,6 +191,11 @@ namespace Killer.Tools.DataStructure.KillerGraph
             {
                 throw new ArgumentNullException("startVertex", "其实顶点不能为null");
             }
+            DepthTraverseIn(startVertex, vertexDo);
+        }
+
+        private static void DepthTraverseIn(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        {
             var midVertex = startVertex;
             var edge = midVertex.FirstEdge;
             while (edge != null)
@@ -213,6 +218,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 edge = edge?.Next;
             }
         }
+
         /// <summary>
         /// 广度优先遍历 图
         /// </summary>
@@ -225,6 +231,11 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 throw new ArgumentNullException("startVertex", "遍历起始节点不能为null");
             }
             InitVisited();
+            BreadthTraverseIn(startVertex, vertexDo);
+        }
+
+        private void BreadthTraverseIn(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        {
             var queue = new Queue<KillerVertex<T>>(this.Count);
             queue.Enqueue(startVertex);
             var edge = startVertex.FirstEdge;
@@ -248,6 +259,41 @@ namespace Killer.Tools.DataStructure.KillerGraph
                     }
                     edge = edge.Next;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 非全向 图 深度优先遍历
+        /// </summary>
+        /// <param name="vertexDo"></param>
+        public void NotAllDirectedDepth(Action<KillerVertex<T>> vertexDo)
+        {
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("图中没有数据");
+            }
+            InitVisited();
+
+            foreach (var vertex in this._vertexs)
+            {
+                DepthTraverseIn(vertex, vertexDo);
+            }
+        }
+        /// <summary>
+        /// 非全向图 广度优先遍历
+        /// </summary>
+        /// <param name="vertexDo"></param>
+        public void NotAllDirectedBreadth(Action<KillerVertex<T>> vertexDo)
+        {
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("图中没有数据");
+            }
+            InitVisited();
+
+            foreach (var vertex in this._vertexs)
+            {
+                BreadthTraverseIn(vertex, vertexDo);
             }
         }
         private void InitVisited()
