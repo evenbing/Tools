@@ -184,7 +184,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
         /// <summary>
         /// 深度优先遍历
         /// </summary>
-        public void DeepTraverse(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        public void DepthTraverse(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
         {
             InitVisited();//初始化为未访问过的
             if (startVertex == null)
@@ -211,6 +211,43 @@ namespace Killer.Tools.DataStructure.KillerGraph
                     }
                 }
                 edge = edge?.Next;
+            }
+        }
+        /// <summary>
+        /// 广度优先遍历 图
+        /// </summary>
+        /// <param name="startVertex"></param>
+        /// <param name="vertexDo"></param>
+        public void BreadthTraverse(KillerVertex<T> startVertex, Action<KillerVertex<T>> vertexDo)
+        {
+            if (startVertex == null)
+            {
+                throw new ArgumentNullException("startVertex", "遍历起始节点不能为null");
+            }
+            InitVisited();
+            var queue = new Queue<KillerVertex<T>>(this.Count);
+            queue.Enqueue(startVertex);
+            var edge = startVertex.FirstEdge;
+            KillerVertex<T> vertex;
+            while (queue.Count > 0)
+            {
+                vertex = queue.Dequeue();
+                if (!vertex.IsVisited)
+                {
+                    vertex.IsVisited = true;
+                    vertexDo?.Invoke(vertex);
+                }
+                edge = vertex.FirstEdge;
+                while (edge != null)
+                {
+                    if (edge.Vertex.IsVisited == false)
+                    {
+                        vertexDo?.Invoke(edge.Vertex);
+                        edge.Vertex.IsVisited = true;
+                        queue.Enqueue(edge.Vertex);
+                    }
+                    edge = edge.Next;
+                }
             }
         }
         private void InitVisited()

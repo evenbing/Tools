@@ -54,9 +54,14 @@ namespace Killer.Tools.Test.DataStucture.Graph
             Output();
 
 
-            graph.DeepTraverse(a, (t) =>
+            graph.DepthTraverse(a, (t) =>
             {
                 Console.WriteLine(t.VertexValue+"*");
+            });
+
+            graph.BreadthTraverse(a, (t) =>
+            {
+                Console.WriteLine(t.VertexValue + "+");
             });
 
             graph.RemoveVertex(d);
