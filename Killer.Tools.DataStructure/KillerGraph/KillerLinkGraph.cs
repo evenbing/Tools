@@ -34,25 +34,46 @@ namespace Killer.Tools.DataStructure.KillerGraph
         /// </summary>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        public void AddUnDirectedEdge(KillerVertex<T> v1, KillerVertex<T> v2)
+        /// <param name="weigth"></param>
+        public void AddUnDirectedEdge(KillerVertex<T> v1, KillerVertex<T> v2, int weigth = 0)
         {
-            AddDirectedEdge(v1, v2);
-            AddDirectedEdge(v2, v1);
+            AddDirectedEdge(v1, v2, weigth);
+            AddDirectedEdge(v2, v1, weigth);
         }
         /// <summary>
         /// 添加一条有向边
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        public void AddDirectedEdge(KillerVertex<T> from, KillerVertex<T> to)
+        /// <param name="weigth"></param>
+        public void AddDirectedEdge(KillerVertex<T> from, KillerVertex<T> to, int weigth = 0)
         {
             if (from == null || to == null)
             {
                 throw new ArgumentNullException("参数不能为null");
             }
+            if (weigth < 0)
+            {
+                weigth = 0;
+            }
+            var midEdge = to.FirstEdge;
+            if (midEdge != null)
+            {
+                do
+                {
+                    if (midEdge.Vertex == from)
+                    {
+                        if (midEdge.Weight != weigth)
+                        {
+                            throw new InvalidOperationException("两个节点之间的权重不一致");
+                        }
+                    }
+                    midEdge = midEdge.Next;
+                } while (midEdge != null);
+            }
             if (from.FirstEdge == null)
             {
-                from.FirstEdge = new KillerLinkNode<T>(to, null);
+                from.FirstEdge = new KillerLinkNode<T>(to, null, weigth);
             }
             else
             {
@@ -69,7 +90,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                         return;
                     }
                 }
-                enge.Next = new KillerLinkNode<T>(to, null);
+                enge.Next = new KillerLinkNode<T>(to, null, weigth);
             }
         }
         /// <summary>
@@ -318,6 +339,71 @@ namespace Killer.Tools.DataStructure.KillerGraph
             {
                 BreadthTraverseIn(vertex, vertexDo);
             }
+        }
+        /// <summary>
+        /// prim  最短树选择
+        /// </summary>
+        /// <param name="startVertex"></param>
+        /// <returns></returns>
+        public KillerLinkGraph<T> PrimTree(KillerVertex<T> startVertex)
+        {
+            if (IsEmpty())
+            {
+                return null;
+            }
+            if (startVertex == null)
+            {
+                startVertex = this._vertexs.First();
+            }
+            KillerLinkGraph<T> graph = new KillerLinkGraph<T>();
+            graph.AddVertex(startVertex.VertexValue);
+            var midEdge = startVertex.FirstEdge;
+            var midVertex = startVertex;
+            var fromVertex = startVertex;
+            List<KillerVertex<T>> list = new List<KillerVertex<T>>(this.Count) { startVertex };
+            Dictionary<KillerVertex<T>, KillerVertex<T>> dic = new Dictionary<KillerVertex<T>, KillerVertex<T>>(this.Count);
+            Dictionary<KillerVertex<T>, KillerLinkNode<T>> dicMid = new Dictionary<KillerVertex<T>, KillerLinkNode<T>>(this.Count);
+            while (list.Count < this.Count)
+            {
+                var weight = int.MaxValue;
+                foreach (var item in list)
+                {
+                    fromVertex = item;
+                    midEdge = item.FirstEdge;
+                    midVertex = midEdge.Vertex;
+                    dicMid.Add(fromVertex, midEdge);
+                    do
+                    {
+                        if (midEdge.Weight <= weight && !list.Contains(midEdge.Vertex))
+                        {
+                            midVertex = midEdge.Vertex;
+                            weight = midEdge.Weight;
+                            dicMid[fromVertex] = midEdge;
+                        }
+                        midEdge = midEdge.Next;
+                    } while (midEdge != null);
+                }
+                if (dicMid.Count == 1)
+                {
+                    var res = dicMid.First();
+                    Console.WriteLine($"{res.Key.VertexValue}----{res.Value.Vertex.VertexValue}-----weigth{weight}");
+                    list.Add(res.Value.Vertex);
+                }
+                else
+                {
+                    foreach (var item in dicMid)
+                    {
+                        if (item.Value.Weight == weight)
+                        {
+                            list.Add(item.Value.Vertex);
+                            Console.WriteLine($"{item.Key.VertexValue}----{item.Value.Vertex.VertexValue}-----weigth{weight}");
+                            break;
+                        }
+                    }
+                }
+                dicMid = new Dictionary<KillerVertex<T>, KillerLinkNode<T>>();
+            }
+            return null;
         }
         private void InitVisited()
         {

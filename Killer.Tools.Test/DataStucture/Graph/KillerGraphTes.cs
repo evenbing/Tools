@@ -33,30 +33,29 @@ namespace Killer.Tools.Test.DataStucture.Graph
             var d = graph.Vertexs.First(t => t.VertexValue == "D");
             var e = graph.Vertexs.First(t => t.VertexValue == "E");
             var f = graph.Vertexs.First(t => t.VertexValue == "F");
-
-            graph.AddDirectedEdge(a, b);
-            graph.AddDirectedEdge(a, d);
-            graph.AddDirectedEdge(a, f);
-            graph.AddDirectedEdge(b, a);
-            graph.AddDirectedEdge(b, c);
-            graph.AddDirectedEdge(c, b);
-            graph.AddDirectedEdge(c, d);
-            graph.AddDirectedEdge(c, e);
-            graph.AddDirectedEdge(d, a);
-            graph.AddDirectedEdge(d, c);
-            graph.AddDirectedEdge(d, e);
-            graph.AddDirectedEdge(e, d);
-            graph.AddDirectedEdge(e, c);
-            graph.AddDirectedEdge(e, f);
-            graph.AddDirectedEdge(f, a);
-            graph.AddDirectedEdge(f, e);
+            graph.AddDirectedEdge(a, b, 5);
+            graph.AddDirectedEdge(a, d, 10);
+            graph.AddDirectedEdge(a, f, 20);
+            graph.AddDirectedEdge(b, a, 5);
+            graph.AddDirectedEdge(b, c, 30);
+            graph.AddDirectedEdge(c, b, 30);
+            graph.AddDirectedEdge(c, d, 26);
+            graph.AddDirectedEdge(c, e, 35);
+            graph.AddDirectedEdge(d, a, 10);
+            graph.AddDirectedEdge(d, c, 26);
+            graph.AddDirectedEdge(d, e, 25);
+            graph.AddDirectedEdge(e, d, 25);
+            graph.AddDirectedEdge(e, c, 35);
+            graph.AddDirectedEdge(e, f, 33);
+            graph.AddDirectedEdge(f, a, 20);
+            graph.AddDirectedEdge(f, e, 33);
 
             Output();
 
 
             graph.DepthTraverse(a, (t) =>
             {
-                Console.WriteLine(t.VertexValue+"*");
+                Console.WriteLine(t.VertexValue + "*");
             });
 
             graph.NotAllDirectedDepth((t) =>
@@ -68,6 +67,11 @@ namespace Killer.Tools.Test.DataStucture.Graph
             {
                 Console.WriteLine(t.VertexValue + "+");
             });
+
+
+            Console.WriteLine("占行");
+            graph.PrimTree(a);
+            Console.WriteLine("占行");
 
             graph.RemoveVertex(d);
 
@@ -84,7 +88,7 @@ namespace Killer.Tools.Test.DataStucture.Graph
                     var edge = item.FirstEdge;
                     do
                     {
-                        str += $"{item.VertexValue} -> {edge.Vertex.VertexValue} \t";
+                        str += $"{item.VertexValue} -> {edge.Vertex.VertexValue}  weight={edge.Weight}\t";
                         edge = edge.Next;
                     } while (edge != null);
 
