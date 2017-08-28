@@ -360,13 +360,14 @@ namespace Killer.Tools.DataStructure.KillerGraph
             var midEdge = startVertex.FirstEdge;
             var midVertex = startVertex;
             var fromVertex = startVertex;
-            List<KillerVertex<T>> list = new List<KillerVertex<T>>(this.Count) { startVertex };
-            Dictionary<KillerVertex<T>, KillerVertex<T>> dic = new Dictionary<KillerVertex<T>, KillerVertex<T>>(this.Count);
+            HashSet<KillerVertex<T>> hashSet = new HashSet<KillerVertex<T>>();
+            hashSet.Add(startVertex);
+            Dictionary<KillerVertex<T>, KillerLinkNode<T>> dic = new Dictionary<KillerVertex<T>, KillerLinkNode<T>>(this.Count * 2);
             Dictionary<KillerVertex<T>, KillerLinkNode<T>> dicMid = new Dictionary<KillerVertex<T>, KillerLinkNode<T>>(this.Count);
-            while (list.Count < this.Count)
+            while (hashSet.Count < this.Count)
             {
                 var weight = int.MaxValue;
-                foreach (var item in list)
+                foreach (var item in hashSet)
                 {
                     fromVertex = item;
                     midEdge = item.FirstEdge;
@@ -374,7 +375,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                     dicMid.Add(fromVertex, midEdge);
                     do
                     {
-                        if (midEdge.Weight <= weight && !list.Contains(midEdge.Vertex))
+                        if (midEdge.Weight <= weight && !hashSet.Contains(midEdge.Vertex))
                         {
                             midVertex = midEdge.Vertex;
                             weight = midEdge.Weight;
@@ -387,7 +388,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                 {
                     var res = dicMid.First();
                     Console.WriteLine($"{res.Key.VertexValue}----{res.Value.Vertex.VertexValue}-----weigth{weight}");
-                    list.Add(res.Value.Vertex);
+                    hashSet.Add(res.Value.Vertex);
                 }
                 else
                 {
@@ -395,7 +396,7 @@ namespace Killer.Tools.DataStructure.KillerGraph
                     {
                         if (item.Value.Weight == weight)
                         {
-                            list.Add(item.Value.Vertex);
+                            hashSet.Add(item.Value.Vertex);
                             Console.WriteLine($"{item.Key.VertexValue}----{item.Value.Vertex.VertexValue}-----weigth{weight}");
                             break;
                         }
@@ -405,6 +406,118 @@ namespace Killer.Tools.DataStructure.KillerGraph
             }
             return null;
         }
+        /// <summary>
+        /// Kruska 最短树生成算法
+        /// </summary>
+        public void KruskalMinTree()
+        {
+            //
+            List<KillerGraphEdge<T>> list = new List<KillerGraphEdge<T>>(this.Count * this.Count - this.Count);
+            foreach (var vertex in this._vertexs)
+            {
+                var edge = vertex.FirstEdge;
+
+                do
+                {
+                    list.Add(new KillerGraphEdge<T>()
+                    {
+                        BeginVertex = vertex,
+                        EndVertex = edge.Vertex,
+                        Weight = edge.Weight
+                    });
+                    edge = edge.Next;
+                } while (edge != null);
+            }
+            list.Sort();
+            Dictionary<int, List<KillerGraphEdge<T>>> groups = new Dictionary<int, List<KillerGraphEdge<T>>>(this.Count);
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                var mark = true;
+                if (groups.Count < 1)
+                {
+                    groups.Add(i, new List<KillerGraphEdge<T>>(this.Count) { item });
+                    Console.WriteLine($"{item.BeginVertex.VertexValue} --  {item.EndVertex.VertexValue}  weight : {item.Weight}");
+                }
+                else
+                {
+                    foreach (var group in groups)
+                    {
+                        for (int ik = 0; ik < group.Value.Count; ik++)
+                        {
+                            if (group.Value[ik].EndVertex == item.EndVertex || group.Value[ik].EndVertex == item.BeginVertex || group.Value[ik].BeginVertex == item.EndVertex || group.Value[ik].BeginVertex == item.BeginVertex)
+                            {
+                                if (group.Value[ik].EndVertex == item.BeginVertex && group.Value[ik].BeginVertex == item.EndVertex)
+                                {
+                                    mark = false;
+                                    break;
+                                }
+                                int key1 = -1;
+                                int key2 = -1;
+                                bool flag1 = false;
+                                bool flag2 = false;
+                                //mark = false;
+                                //Console.WriteLine($"{item.BeginVertex.VertexValue} --  {item.EndVertex.VertexValue}  weight : {item.Weight}");
+                                //groups[group.Key].Add(item);
+                                flag1 = groups.Any(t =>
+                                    {
+                                        key1 = t.Key;
+                                        return t.Value.Any(k =>
+                                        {
+                                            return k.BeginVertex == item.BeginVertex || k.EndVertex == item.BeginVertex;
+                                        });
+                                    });
+                                flag2 = groups.Any(t =>
+                                  {
+                                      key2 = t.Key;
+                                      return t.Value.Any(k =>
+                                      {
+                                          return k.BeginVertex == item.EndVertex || k.EndVertex == item.EndVertex;
+                                      });
+                                  });
+                                if (flag2 && flag1)
+                                {
+                                    if (key1 != key2)
+                                    {
+                                        groups[key1].AddRange(groups[key2]);
+                                        groups.Remove(key2);
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"*{item.BeginVertex.VertexValue} --  {item.EndVertex.VertexValue}  weight : {item.Weight}");
+                                    //得判断联通
+                                    if (flag1)
+                                    {
+                                        groups[key1].Add(item);
+                                    }
+                                    if (flag2)
+                                    {
+                                        groups[key2].Add(item);
+                                    }
+                                }
+                                mark = false;
+                                break;
+                            }
+                        }
+                        if (mark)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (mark)
+                    {
+                        groups.Add(i, new List<KillerGraphEdge<T>>(this.Count) { item });
+                        Console.WriteLine($"+{item.BeginVertex.VertexValue} --  {item.EndVertex.VertexValue}  weight : {item.Weight}");
+                    }
+                }
+            }
+        }
+
         private void InitVisited()
         {
             foreach (var vertex in this._vertexs)

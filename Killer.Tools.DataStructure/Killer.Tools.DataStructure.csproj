@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KillerGraph\KillerGraphEdge.cs" />
     <Compile Include="KillerGraph\KillerLinkGraph.cs" />
     <Compile Include="KillerGraph\KillerLinkNode.cs" />
     <Compile Include="KillerGraph\KillerVertex.cs" />

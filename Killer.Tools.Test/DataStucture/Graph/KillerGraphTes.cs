@@ -72,6 +72,11 @@ namespace Killer.Tools.Test.DataStucture.Graph
             Console.WriteLine("占行");
             graph.PrimTree(a);
             Console.WriteLine("占行");
+            Console.WriteLine("");
+            Console.WriteLine("占行");
+            graph.KruskalMinTree();
+            Console.WriteLine("占行");
+
 
             graph.RemoveVertex(d);
 
