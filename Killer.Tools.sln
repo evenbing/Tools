@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.DataStructure", "Killer.Tools.DataStructure\Killer.Tools.DataStructure.csproj", "{E32393B8-BEFB-47E9-AA3E-B58419AD5AE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.Test", "Killer.Tools.Test\Killer.Tools.Test.csproj", "{D7F72B8B-B04C-4CB6-BC45-FC6A1CE2D6A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.Sort", "Killer.Tools.Sort\Killer.Tools.Sort.csproj", "{0947C350-371F-4202-BC37-E28B83F0D1DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D7F72B8B-B04C-4CB6-BC45-FC6A1CE2D6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7F72B8B-B04C-4CB6-BC45-FC6A1CE2D6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7F72B8B-B04C-4CB6-BC45-FC6A1CE2D6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0947C350-371F-4202-BC37-E28B83F0D1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0947C350-371F-4202-BC37-E28B83F0D1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0947C350-371F-4202-BC37-E28B83F0D1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0947C350-371F-4202-BC37-E28B83F0D1DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
