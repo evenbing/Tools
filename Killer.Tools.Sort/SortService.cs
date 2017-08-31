@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Killer.Tools.Sort
 {
@@ -82,6 +80,54 @@ namespace Killer.Tools.Sort
             }
             arr[start] = temp;
             return start;
+        }
+        /// <summary>
+        /// 队排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        public static void HeapSort<T>(T[] arr) where T : IComparable<T>
+        {
+            if (arr == null || arr.Length < 2)
+            {
+                return;
+            }
+            for (int i = (arr.Length / 2 - 1); i >= 0; i--)
+            {
+                HeapSort(arr, i, arr.Length - 1);
+            }
+            for (int i = arr.Length - 1; i > 0; i--)
+            {
+                var temp = arr[0];
+                arr[0] = arr[i];
+                arr[i] = temp;
+                HeapSort(arr, 0, i-1);
+            }
+        }
+
+        private static void HeapSort<T>(T[] arr, int start, int end) where T : IComparable<T>
+        {
+            var i = start;
+            var j = 2 * start + 1;
+            var temp = arr[i];
+            while (j <= end)
+            {
+                if (j < end && arr[j].CompareTo(arr[j + 1]) < 0)
+                {
+                    j++;
+                }
+                if (temp.CompareTo(arr[j]) < 0)
+                {
+                    arr[i] = arr[j]; // 交换根节点与其孩子节点
+                    i = j;  // 以交换后的孩子节点作为根节点继续调整其子树
+                    j = 2 * i + 1;  // j指向交换后的孩子节点的左孩子
+                }
+                else
+                {
+                    break;
+                }
+            }
+            arr[i] = temp;
         }
     }
 }
