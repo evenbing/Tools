@@ -48,9 +48,23 @@ namespace Killer.Tools.Sort
             {
                 return;
             }
-
+            var start = 0;
+            var end = arr.Length - 1;
+            QuickSortmid(arr, start, end);
         }
-        private static void QuickSort<T>(T[] arr, int start, int end) where T : IComparable<T>
+        private static void QuickSortmid<T>(T[] arr, int start, int end) where T : IComparable<T>
+        {
+            var markIndex = QuickSort<T>(arr, start, end);
+            if (markIndex - start > 1)
+            {
+                QuickSortmid(arr, start, markIndex - 1);
+            }
+            if (end - markIndex > 1)
+            {
+                QuickSortmid(arr, markIndex + 1, end);
+            }
+        }
+        private static int QuickSort<T>(T[] arr, int start, int end) where T : IComparable<T>
         {
             var temp = arr[start];
             while (start < end)
@@ -67,6 +81,7 @@ namespace Killer.Tools.Sort
                 arr[end] = arr[start];
             }
             arr[start] = temp;
+            return start;
         }
     }
 }
