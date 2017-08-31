@@ -82,7 +82,7 @@ namespace Killer.Tools.Sort
             return start;
         }
         /// <summary>
-        /// 队排序
+        /// 堆排序
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arr"></param>
