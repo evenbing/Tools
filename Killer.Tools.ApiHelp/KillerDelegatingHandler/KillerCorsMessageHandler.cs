@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Web.Http;
+
 namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
 {
     /// <summary>
@@ -15,7 +17,6 @@ namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
             if (!request.IsPreRequest())
             {
                 response = base.SendAsync(request, cancellationToken).Result;
-
             }
             SetResponseHeaders(response, request);
             return Task.FromResult(response);
