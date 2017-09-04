@@ -9,9 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.Test", "Killer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Killer.Tools.Sort", "Killer.Tools.Sort\Killer.Tools.Sort.csproj", "{0947C350-371F-4202-BC37-E28B83F0D1DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.Help", "Killer.Tools.Help\Killer.Tools.Help.csproj", "{B77D0F72-6BA9-465D-922C-A2EA8ABFA60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Killer.Tools.Help", "Killer.Tools.Help\Killer.Tools.Help.csproj", "{B77D0F72-6BA9-465D-922C-A2EA8ABFA60C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.ApiHelp", "Killer.Tools.ApiHelp\Killer.Tools.ApiHelp.csproj", "{BDBB6A01-C768-4357-9455-A3932CDE55C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Killer.Tools.ApiCoreHelp", "Killer.Tools.ApiCoreHelp\Killer.Tools.ApiCoreHelp.csproj", "{443146C4-0E68-469E-8E78-0D8CAED4A966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BDBB6A01-C768-4357-9455-A3932CDE55C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDBB6A01-C768-4357-9455-A3932CDE55C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDBB6A01-C768-4357-9455-A3932CDE55C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{443146C4-0E68-469E-8E78-0D8CAED4A966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{443146C4-0E68-469E-8E78-0D8CAED4A966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{443146C4-0E68-469E-8E78-0D8CAED4A966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{443146C4-0E68-469E-8E78-0D8CAED4A966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
