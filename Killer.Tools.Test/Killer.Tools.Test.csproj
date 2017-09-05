@@ -44,6 +44,9 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.1.11\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="NetStandardHashLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetStandardHashLib.1.0.0\lib\netstandard2.0\NetStandardHashLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -54,6 +57,7 @@
     <Compile Include="DataStucture\Queue\KillerQueueTest.cs" />
     <Compile Include="DataStucture\Stack\KIllerStackTest.cs" />
     <Compile Include="DataStucture\Tree\BinaryTreeTest.cs" />
+    <Compile Include="Help\Security\KillerSecurityHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sort\SortServiceTest.cs" />
   </ItemGroup>
@@ -65,6 +69,10 @@
     <ProjectReference Include="..\Killer.Tools.DataStructure\Killer.Tools.DataStructure.csproj">
       <Project>{e32393b8-befb-47e9-aa3e-b58419ad5ae4}</Project>
       <Name>Killer.Tools.DataStructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Killer.Tools.Help\Killer.Tools.Help.csproj">
+      <Project>{b77d0f72-6ba9-465d-922c-a2ea8abfa60c}</Project>
+      <Name>Killer.Tools.Help</Name>
     </ProjectReference>
     <ProjectReference Include="..\Killer.Tools.Sort\Killer.Tools.Sort.csproj">
       <Project>{0947c350-371f-4202-bc37-e28b83f0d1db}</Project>

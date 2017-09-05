@@ -5,4 +5,8 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NetStandardHashLib" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
