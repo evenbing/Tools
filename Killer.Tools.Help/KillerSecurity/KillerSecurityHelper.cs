@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashLib;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -56,7 +57,7 @@ namespace Killer.Tools.Help.KillerSecurity
             {
                 var strRes = Encoding.UTF8.GetBytes(value);
                 strRes = sha1.ComputeHash(strRes);
-                var sb = new StringBuilder();
+                var sb = new StringBuilder(56);
                 for (int i = 0; i < strRes.Length; i++)
                 {
                     sb.Append(strRes[i].ToString("x2"));
@@ -85,7 +86,7 @@ namespace Killer.Tools.Help.KillerSecurity
             var strRes = Encoding.UTF8.GetBytes(value);
             var res = sha224.ComputeBytes(strRes);
             strRes = res.GetBytes();
-            var sb = new StringBuilder();
+            var sb = new StringBuilder(56);
             for (int i = 0; i < strRes.Length; i++)
             {
                 sb.Append(strRes[i].ToString("x2"));
@@ -113,7 +114,7 @@ namespace Killer.Tools.Help.KillerSecurity
             {
                 var strRes = Encoding.UTF8.GetBytes(value);
                 strRes = sha256.ComputeHash(strRes);
-                var sb = new StringBuilder();
+                var sb = new StringBuilder(64);
                 for (int i = 0; i < strRes.Length; i++)
                 {
                     sb.Append(strRes[i].ToString("x2"));
@@ -141,7 +142,7 @@ namespace Killer.Tools.Help.KillerSecurity
             {
                 var strRes = Encoding.UTF8.GetBytes(value);
                 strRes = sha384.ComputeHash(strRes);
-                var sb = new StringBuilder();
+                var sb = new StringBuilder(100);
                 for (int i = 0; i < strRes.Length; i++)
                 {
                     sb.Append(strRes[i].ToString("x2"));
@@ -169,13 +170,57 @@ namespace Killer.Tools.Help.KillerSecurity
             {
                 var strRes = Encoding.UTF8.GetBytes(value);
                 strRes = sha512.ComputeHash(strRes);
-                var sb = new StringBuilder();
+                var sb = new StringBuilder(130);
                 for (int i = 0; i < strRes.Length; i++)
                 {
                     sb.Append(strRes[i].ToString("x2"));
                 }
                 return sb.ToString();
             }
+        }
+
+        /// <summary>
+        /// SHA2 加密
+        /// </summary>
+        /// <param name="value">代价密内容</param>
+        /// <param name="shaType">sha2 加密类型</param>
+        /// <param name="encoding">编码格式</param>
+        /// <returns></returns>
+        public static string SHA2Encryption(string value, ShaTypeEnum shaType = ShaTypeEnum.Sha1, Encoding encoding = null)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentNullException("value", "待加密字符串不能为空");
+            }
+            switch (shaType)
+            {
+                case ShaTypeEnum.Sha1: return Sha1Encryption(value, encoding);
+                case ShaTypeEnum.Sha224: return Sha224Encryption(value, encoding);
+                case ShaTypeEnum.Sha256: return Sha256Encryption(value, encoding);
+                case ShaTypeEnum.Sha384: return Sha384Encryption(value, encoding);
+                case ShaTypeEnum.Sha512: return Sha512Encryption(value, encoding);
+                default: return Sha1Encryption(value, encoding);
+            }
+        }
+        /// <summary>
+        /// SHA3 加密
+        /// </summary>
+        /// <param name="value">待加密值</param>
+        /// <param name="hashSize">SHA3 加密类型</param>
+        /// <param name="encoding">编码格式</param>
+        /// <returns></returns>
+
+        public static string Sha3Encryption(string value, HashSize hashSize = HashSize.HashSize256, Encoding encoding = null)
+        {
+            var sha3 = HashLib.HashFactory.Crypto.SHA3.CreateKeccak(hashSize);
+            var res = sha3.ComputeBytes(encoding.GetBytes(value));
+            var resByte = res.GetBytes();
+            var sb = new StringBuilder(130);
+            for (int i = 0; i < resByte.Length; i++)
+            {
+                sb.Append(resByte[i].ToString("x2"));
+            }
+            return string.Empty;
         }
     }
     public enum ShaTypeEnum

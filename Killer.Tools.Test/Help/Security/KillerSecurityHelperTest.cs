@@ -28,7 +28,7 @@ namespace Killer.Tools.Test.Help.Security
             string str = "12300";
             var res = KillerSecurityHelper.Sha224Encryption(str);
             Console.WriteLine(res);
-            str = "78d8045d684abd2eece923758f3cd781489df3a48e1278982466017f";
+            str = "6b4e03423667dbb73b6e15454f0eb1abd4597f9a1b078e3f5b5a6bc7";
             //Assert.AreEqual(224, res.Length);
         }
 
