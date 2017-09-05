@@ -11,15 +11,39 @@ namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
     /// </summary>
     public class KillerCorsMessageHandler : DelegatingHandler
     {
+        public static string Origin { get; set; }
+
+        public KillerCorsMessageHandler()
+        {
+
+        }
+        public KillerCorsMessageHandler(string origin)
+        {
+            Origin = origin;
+        }
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpResponseMessage response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            if (!IsOrigin(request))
+            {
+                response =request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Cross-origin request denied");
+                return Task.FromResult(response);
+            }
             if (!request.IsPreRequest())
             {
                 response = base.SendAsync(request, cancellationToken).Result;
             }
             SetResponseHeaders(response, request);
             return Task.FromResult(response);
+        }
+        private bool IsOrigin(HttpRequestMessage requestMessage)
+        {
+            var origin = requestMessage.Headers.GetValues("Origin").FirstOrDefault();
+            if (!string.IsNullOrEmpty(origin))
+            {
+                return origin == Origin;
+            }
+            return true;
         }
         private void SetResponseHeaders(HttpResponseMessage responseMessage, HttpRequestMessage requestMessage)
         {
