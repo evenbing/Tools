@@ -26,7 +26,7 @@ namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
             HttpResponseMessage response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             if (!IsOrigin(request))
             {
-                response =request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Cross-origin request denied");
+                response = request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Cross-origin request denied");
                 return Task.FromResult(response);
             }
             if (!request.IsPreRequest())
@@ -39,7 +39,7 @@ namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
         private bool IsOrigin(HttpRequestMessage requestMessage)
         {
             var origin = requestMessage.Headers.GetValues("Origin").FirstOrDefault();
-            if (!string.IsNullOrEmpty(origin))
+            if (!string.IsNullOrEmpty(origin) && !string.IsNullOrEmpty(Origin)
             {
                 return origin == Origin;
             }
