@@ -39,7 +39,7 @@ namespace Killer.Tools.ApiHelp.KillerDelegatingHandler
         private bool IsOrigin(HttpRequestMessage requestMessage)
         {
             var origin = requestMessage.Headers.GetValues("Origin").FirstOrDefault();
-            if (!string.IsNullOrEmpty(origin) && !string.IsNullOrEmpty(Origin)
+            if (!string.IsNullOrEmpty(origin) && !string.IsNullOrEmpty(Origin))
             {
                 return origin == Origin;
             }
