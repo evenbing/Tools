@@ -6,9 +6,9 @@ using System.Text;
 namespace Killer.Tools.Help.KillerSecurity
 {
     /// <summary>
-    /// 各种常用加密算法实现
+    /// 各种常用hash加密算法封装
     /// </summary>
-    public class KillerSecurityHelper
+    public class KillerHashSecurityHelper
     {
         /// <summary>
         /// MD5 加密

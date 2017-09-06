@@ -58,6 +58,7 @@
     <Compile Include="DataStucture\Stack\KIllerStackTest.cs" />
     <Compile Include="DataStucture\Tree\BinaryTreeTest.cs" />
     <Compile Include="Help\Security\KillerSecurityHelperTest.cs" />
+    <Compile Include="Help\Security\KillerSymmetricalEncryptionHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sort\SortServiceTest.cs" />
   </ItemGroup>
