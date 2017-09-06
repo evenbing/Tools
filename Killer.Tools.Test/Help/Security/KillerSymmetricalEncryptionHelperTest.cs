@@ -24,7 +24,19 @@ namespace Killer.Tools.Test.Help.Security
             var res2 = KillerSymmetricalEncryptionHelper.DesDeEncryption(res1, key);
             Console.WriteLine(res2);
 
+            Assert.AreEqual(value, res2);
+        }
+        [TestMethod]
+        public void DES3()
+        {
+            string key = "jskjdpps90dsdks%$#555&*()12345678123456780000000025556";
+            string value = "中国";
+            var res1 = KillerSymmetricalEncryptionHelper.Des3Encryption(value, key);
+            Console.WriteLine(res1);
+            var res2 = KillerSymmetricalEncryptionHelper.Des3DeEncryption(res1, key);
+            Console.WriteLine(res2);
 
+            Assert.AreEqual(value, res2);
         }
     }
 }

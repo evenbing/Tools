@@ -20,7 +20,7 @@ namespace Killer.Tools.Help.KillerSecurity
         /// <param name="secretKey">加密key</param>
         /// <param name="encoding">编码格式</param>
         /// <returns></returns>
-        public static string DesEncryption(string value, string secretKey, Encoding encoding = null)
+        public static string DesEncryption(string value, string secretKey, Encoding encoding = null, CipherMode mode = CipherMode.CBC)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -33,7 +33,8 @@ namespace Killer.Tools.Help.KillerSecurity
             using (DES des = new DESCryptoServiceProvider()
             {
                 IV = _desIv,
-                Key = encoding.GetBytes(secretKey.Substring(0,8))
+                Key = encoding.GetBytes(secretKey.Substring(0, 8)),
+                Mode = mode
             })
             {
                 var creator = des.CreateEncryptor();
@@ -60,7 +61,7 @@ namespace Killer.Tools.Help.KillerSecurity
         /// <param name="secretKey">加密key</param>
         /// <param name="encoding">编码格式</param>
         /// <returns></returns>
-        public static string DesDeEncryption(string value, string secretKey, Encoding encoding = null)
+        public static string DesDeEncryption(string value, string secretKey, Encoding encoding = null, CipherMode mode = CipherMode.CBC)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -73,7 +74,8 @@ namespace Killer.Tools.Help.KillerSecurity
             using (DES des = new DESCryptoServiceProvider()
             {
                 IV = _desIv,
-                Key = encoding.GetBytes(secretKey.Substring(0,8))
+                Key = encoding.GetBytes(secretKey.Substring(0, 8)),
+                Mode = mode
             })
             {
                 var creator = des.CreateDecryptor();
@@ -86,6 +88,91 @@ namespace Killer.Tools.Help.KillerSecurity
                     inputByteArray[x] = (byte)i;
                 }
                 cryptoStream.Write(inputByteArray, 0, inputByteArray.Length);
+                cryptoStream.FlushFinalBlock();
+                var res = memoryStream.ToArray();
+                var desStr = encoding.GetString(res);
+                cryptoStream.Dispose();
+                memoryStream.Dispose();
+                return desStr;
+            }
+        }
+        /// <summary>
+        /// 3des  加密
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="secretKey"></param>
+        /// <param name="encoding"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static string Des3Encryption(string value, string secretKey, Encoding encoding = null, CipherMode mode = CipherMode.CBC)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentNullException(nameof(value), "Encryption content is empty");
+            }
+            if (encoding == null)
+            {
+                encoding = EncryptionEncoding;
+            }
+            using (TripleDES des3 = new TripleDESCryptoServiceProvider()
+            {
+                Key = encoding.GetBytes(secretKey.Substring(0, 24)),
+                IV = _desIv,
+                Mode = mode
+            })
+            {
+                var creator = des3.CreateEncryptor();
+                MemoryStream memoryStream = new MemoryStream();
+                CryptoStream cryptoStream = new CryptoStream(memoryStream, creator, CryptoStreamMode.Write);
+                var inputvalue = encoding.GetBytes(value);
+                cryptoStream.Write(inputvalue, 0, inputvalue.Length);
+                cryptoStream.FlushFinalBlock();
+                var res = memoryStream.ToArray();
+                StringBuilder sb = new StringBuilder(res.Length * 2);
+                for (int i = 0; i < res.Length; i++)
+                {
+                    sb.Append(res[i].ToString("X2"));
+                }
+                cryptoStream.Dispose();
+                memoryStream.Dispose();
+                return sb.ToString();
+            }
+        }
+        /// <summary>
+        /// 3DES 解密
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="secretKey"></param>
+        /// <param name="encoding"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static string Des3DeEncryption(string value, string secretKey, Encoding encoding = null, CipherMode mode = CipherMode.CBC)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentNullException(nameof(value), "Encryption content is empty");
+            }
+            if (encoding == null)
+            {
+                encoding = EncryptionEncoding;
+            }
+            using (TripleDES des3 = new TripleDESCryptoServiceProvider()
+            {
+                Key = encoding.GetBytes(secretKey.Substring(0, 24)),
+                IV = _desIv,
+                Mode = mode
+            })
+            {
+                var creator = des3.CreateDecryptor();
+                MemoryStream memoryStream = new MemoryStream();
+                CryptoStream cryptoStream = new CryptoStream(memoryStream, creator, CryptoStreamMode.Write);
+                byte[] inputvalue = new byte[value.Length / 2];
+                for (int x = 0; x < value.Length / 2; x++)
+                {
+                    int i = (Convert.ToInt32(value.Substring(x * 2, 2), 16));
+                    inputvalue[x] = (byte)i;
+                }
+                cryptoStream.Write(inputvalue, 0, inputvalue.Length);
                 cryptoStream.FlushFinalBlock();
                 var res = memoryStream.ToArray();
                 var desStr = encoding.GetString(res);

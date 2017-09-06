@@ -2,7 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.2</Version>
+    <PackageProjectUrl>https://github.com/Gun-Killer/Tools/tree/master/Killer.Tools.Help</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gun-Killer/Tools/tree/master/Killer.Tools.Help</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Tool</PackageTags>
+    <Description>Often use tool</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
