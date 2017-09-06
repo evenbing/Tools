@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 namespace Killer.Tools.ApiCoreHelp.KillerMiddleares
 {
+    /// <summary>
+    /// core 通用组件 自定义  
+    /// 为啥这样定义：参考源码
+    /// https://github.com/aspnet/HttpAbstractions/blob/dev/src/Microsoft.AspNetCore.Http.Abstractions/Extensions/UseMiddlewareExtensions.cs
+    /// </summary>
     public class KillerCorsMiddleare
     {
         public RequestDelegate Next { get; set; }
-
-
         public KillerCorsMiddleare(RequestDelegate next)
         {
             this.Next = next;
