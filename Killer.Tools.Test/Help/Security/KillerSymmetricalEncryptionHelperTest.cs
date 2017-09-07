@@ -38,5 +38,17 @@ namespace Killer.Tools.Test.Help.Security
 
             Assert.AreEqual(value, res2);
         }
+        [TestMethod]
+        public void AES()
+        {
+            //7CA69DEE25F5EB830E3D849340C004C4
+            //66021339B8929620F6397D070E508707
+            string key = "jskjdpps90dsdks%$#555&*()12345678123456780000000025556";
+            string value = "中国354656565465dsdkjsjkkjdbsmndbsjcvbsdvfd";
+            var res1 = KillerSymmetricalEncryptionHelper.AESEncryption(value, key,AESLen.Len256);
+            Console.WriteLine(res1);
+            var res2 = KillerSymmetricalEncryptionHelper.AESDeEncryption(res1, key, AESLen.Len256);
+            Console.WriteLine(res2);
+        }
     }
 }
